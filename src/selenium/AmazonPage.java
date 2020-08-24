@@ -17,7 +17,7 @@ public class AmazonPage {
 
 	@FindBy(how = How.ID, using="searchDropdownBox")
 	private WebElement navSearchDropDown;
-	//private Select dropDown;
+	private Select dropDown;
 	
 	@FindBy(how = How.ID, using="twotabsearchtextbox")
 	private WebElement searchBar;
@@ -31,24 +31,43 @@ public class AmazonPage {
 	@FindAll({@FindBy(how = How.CLASS_NAME, using="p13n-sc-truncated")})
 	private List<WebElement> bookElements = new ArrayList<WebElement>();
 	
-	public void selectBooks()
+	public void startExtract(WebDriver driver)
 	{
-		//dropDown = new Select(navSearchDropDown);
-		navSearchDropDown.sendKeys("Books");
+		selectBooks();
+		waitForLoad(driver);
+		scrollDown(driver);
+		selectActionAdventure();
+		waitForLoad(driver);
+		listTopBooks();
+		waitForLoad(driver);
+		getAllBooks();
+		driver.close();
+	}
+	
+	private void selectBooks()
+	{
+		dropDown = new Select(navSearchDropDown);
+		dropDown.selectByIndex(11);
 		searchBar.submit();
 	}
 	
-	public void selectActionAdventure()
+	private void scrollDown(WebDriver driver)
+	{
+		JavascriptExecutor jse  = (JavascriptExecutor) driver;
+		jse.executeScript("arguments[0].scrollIntoView();", actionAdventureLink);
+	}
+	
+	private void selectActionAdventure()
 	{
 		actionAdventureLink.click();
 	}
 	
-	public void listTopBooks()
+	private void listTopBooks()
 	{
 		showAllActionAdventureBooks.click();
 	}
 	
-	public void getAllBooks()
+	private void getAllBooks()
 	{
 		System.out.println("Function called to display All books");
 		//bookElement = new ArrayList<WebElement>();
@@ -62,7 +81,7 @@ public class AmazonPage {
 		}
 	}
 	
-	public void waitForLoad(WebDriver driver) 
+	private void waitForLoad(WebDriver driver) 
 	{
         ExpectedCondition<Boolean> pageLoadCondition = new
                 ExpectedCondition<Boolean>() {
