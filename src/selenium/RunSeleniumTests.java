@@ -5,7 +5,7 @@ import org.openqa.selenium.support.PageFactory;
 
 public class RunSeleniumTests {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException{
 		// TODO Auto-generated method stub
 		WebDriver driver = SeleniumChromeDriver.initiateChromeDriver();
 		driver.get("https://www.amazon.in");
@@ -16,5 +16,8 @@ public class RunSeleniumTests {
 		ap.selectActionAdventure();
 		ap.waitForLoad(driver);
 		ap.listTopBooks();
+		ap.waitForLoad(driver);
+		Thread.sleep(10000);
+		ap.getAllBooks();
 	}
 }

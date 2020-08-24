@@ -8,6 +8,10 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.FindAll;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class AmazonPage {
 
@@ -24,6 +28,9 @@ public class AmazonPage {
 	@FindBy(how = How.XPATH, using="//*[@class=\"a-spacing-mini acswidget-carousel__header\"]/a[@aria-label=\"See more Most gifted \"]")
 	private WebElement showAllActionAdventureBooks;
 	
+	@FindAll({@FindBy(how = How.CLASS_NAME, using="p13n-sc-truncated")})
+	private List<WebElement> bookElements = new ArrayList<WebElement>();
+	
 	public void selectBooks()
 	{
 		//dropDown = new Select(navSearchDropDown);
@@ -39,6 +46,20 @@ public class AmazonPage {
 	public void listTopBooks()
 	{
 		showAllActionAdventureBooks.click();
+	}
+	
+	public void getAllBooks()
+	{
+		System.out.println("Function called to display All books");
+		//bookElement = new ArrayList<WebElement>();
+		//bookElements = new ArrayList<WebElement>();
+		System.out.println("Current list size"+bookElements.size());
+		//Iterator elementIterator = bookElements.iterator();
+		for(WebElement book:bookElements)
+		{
+			String name = book.getText();
+			System.out.println(name);
+		}
 	}
 	
 	public void waitForLoad(WebDriver driver) 
