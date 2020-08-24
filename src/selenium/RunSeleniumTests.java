@@ -12,6 +12,9 @@ public class RunSeleniumTests {
 		
 		AmazonPage ap = PageFactory.initElements(driver, AmazonPage.class);
 		ap.selectBooks();
+		ap.waitForLoad(driver);
+		ap.selectActionAdventure();
+		ap.waitForLoad(driver);
+		ap.listTopBooks();
 	}
-
 }
