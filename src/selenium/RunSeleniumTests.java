@@ -17,7 +17,8 @@ public class RunSeleniumTests {
 		ap.waitForLoad(driver);
 		ap.listTopBooks();
 		ap.waitForLoad(driver);
-		Thread.sleep(10000);
+		//Thread.sleep(10000);
 		ap.getAllBooks();
+		driver.close();
 	}
 }
