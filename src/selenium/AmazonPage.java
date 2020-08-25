@@ -7,6 +7,7 @@ import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.FindAll;
 import java.util.List;
@@ -15,12 +16,17 @@ import java.util.Iterator;
 
 public class AmazonPage {
 
+	public List<String> bookCategories, bookNames;
+	
 	@FindBy(how = How.ID, using="searchDropdownBox")
 	private WebElement navSearchDropDown;
 	private Select dropDown;
 	
 	@FindBy(how = How.ID, using="twotabsearchtextbox")
 	private WebElement searchBar;
+	
+	@FindAll({@FindBy(how = How.XPATH, using="//*[@id=\"leftNav\"]/ul[1]/ul/div/li")})
+	private List<WebElement> bookCatElements = new ArrayList<WebElement>();
 	
 	@FindBy(how = How.XPATH, using="//*[@id=\"leftNav\"]/ul[1]/ul/div/li[1]/span/a/span")
 	private WebElement actionAdventureLink;
@@ -31,17 +37,29 @@ public class AmazonPage {
 	@FindAll({@FindBy(how = How.CLASS_NAME, using="p13n-sc-truncated")})
 	private List<WebElement> bookElements = new ArrayList<WebElement>();
 	
-	public void startExtract(WebDriver driver)
+	public boolean startExtract(WebDriver driver)
 	{
-		selectBooks();
-		waitForLoad(driver);
-		scrollDown(driver);
-		selectActionAdventure();
-		waitForLoad(driver);
-		listTopBooks();
-		waitForLoad(driver);
-		getAllBooks();
-		driver.close();
+		Boolean complete = false;
+		try
+		{
+			selectBooks();
+			waitForLoad(driver);
+			scrollDown(driver);
+			getAllBookCategories();
+			selectActionAdventure();
+			waitForLoad(driver);
+			listTopBooks();
+			waitForLoad(driver);
+			getAllBooksNames();
+			waitForLoad(driver);
+			complete = true;
+		}
+		catch(NoSuchElementException e)
+		{
+			e.printStackTrace();
+			complete = false;
+		}
+		return complete;
 	}
 	
 	private void selectBooks()
@@ -67,17 +85,25 @@ public class AmazonPage {
 		showAllActionAdventureBooks.click();
 	}
 	
-	private void getAllBooks()
+	private void getAllBookCategories()
+	{		
+		bookCategories = new ArrayList<String>();
+		
+		for(WebElement bookCat:bookCatElements)
+		{
+			String name = bookCat.getText();
+			//System.out.println(name);
+			bookCategories.add(name);
+		}
+	}
+	
+	private void getAllBooksNames()
 	{
-		System.out.println("Function called to display All books");
-		//bookElement = new ArrayList<WebElement>();
-		//bookElements = new ArrayList<WebElement>();
-		System.out.println("Current list size"+bookElements.size());
-		//Iterator elementIterator = bookElements.iterator();
+		bookNames = new ArrayList<String>();
 		for(WebElement book:bookElements)
 		{
 			String name = book.getText();
-			System.out.println(name);
+			bookNames.add(name);
 		}
 	}
 	

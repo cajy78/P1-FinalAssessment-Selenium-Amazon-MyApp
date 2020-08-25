@@ -11,6 +11,26 @@ public class RunSeleniumTests {
 		driver.get("https://www.amazon.in");
 		
 		AmazonPage ap = PageFactory.initElements(driver, AmazonPage.class);
-		ap.startExtract(driver);
+		Boolean completed = ap.startExtract(driver);
+		
+		if(completed)
+		{
+			driver.get("http://localhost:8080/SimpliLearnP1Test-Assessment/BookNamesExtracted.html");
+			System.out.println("Printing book categories");
+			for(String i: ap.bookCategories)
+			{
+				System.out.println(i);
+			}
+			System.out.println("Printing book Names");
+			System.out.println("Printing book Names");
+			for(String i: ap.bookNames)
+			{
+				System.out.println(i);
+			}
+		}
+		else
+		{
+			driver.get("http://localhost:8080/SimpliLearnP1Test-Assessment/elementNotFound.html");
+		}
 	}
 }
