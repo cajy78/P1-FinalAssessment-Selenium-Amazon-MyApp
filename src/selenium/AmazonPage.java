@@ -19,7 +19,7 @@ public class AmazonPage {
 
 	public List<String> bookCategories, bookNames;
 	
-	@FindBy(how = How.ID, using="")
+	@FindBy(how = How.ID, using="searchDropdownBox")
 	private WebElement navSearchDropDown;
 	private Select dropDown;
 	
