@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.junit.Assert;
+import java.io.IOException;
 
 public class MyAppHomePage {
 	
@@ -42,21 +43,27 @@ public class MyAppHomePage {
 	private WebElement homeLink;
 	
 	public boolean startHomeTest(WebDriver driver)
-		throws InterruptedException
+		throws InterruptedException, IOException
 	{
 		boolean testComplete = false;
 		try
 		{
 			//Thread.sleep(1000);
-			testValidBookID();
+			testValidBookID(driver, "C:\\Users\\cajy7\\OneDrive\\Documents\\Studies and Certs"
+					+ "\\Automation Testing Masters\\Phase 1\\Assessment Project\\Screenshots\\09-MyApp-ValidBookID.jpg");
 			waitForLoad(driver);
 			//Thread.sleep(1000);
 			outputTestComplete = assertSearchComplete("Following information is extracted from the MyApp Database", searchComplete.getText());
+			TestScreenshots.takeSS(driver, "C:\\Users\\cajy7\\OneDrive\\Documents\\Studies and Certs"
+					+ "\\Automation Testing Masters\\Phase 1\\Assessment Project\\Screenshots\\10-MyApp-BookbyID.jpg");
 			goHome();
 			waitForLoad(driver);
 			//Thread.sleep(1000);
-			testInvalidBookID();
+			testInvalidBookID(driver, "C:\\Users\\cajy7\\OneDrive\\Documents\\Studies and Certs"
+					+ "\\Automation Testing Masters\\Phase 1\\Assessment Project\\Screenshots\\11-MyApp-invalidID.jpg");
 			validityTestComplete = assertInvalidInput("No data exists with the current selection", invalidInput.getText());
+			TestScreenshots.takeSS(driver, "C:\\Users\\cajy7\\OneDrive\\Documents\\Studies and Certs"
+					+ "\\Automation Testing Masters\\Phase 1\\Assessment Project\\Screenshots\\12-MyApp-invalidInput.jpg");
 			waitForLoad(driver);
 			//Thread.sleep(1000);
 			goHome();
@@ -64,13 +71,18 @@ public class MyAppHomePage {
 			//Thread.sleep(1000);
 			testBlankBookID();
 			blankTestComplete = assertBlankID("Please enter a Book ID", blankIDError.getText());
+			TestScreenshots.takeSS(driver, "C:\\Users\\cajy7\\OneDrive\\Documents\\Studies and Certs"
+					+ "\\Automation Testing Masters\\Phase 1\\Assessment Project\\Screenshots\\13-MyApp-blankBookIDError.jpg");
 			//Thread.sleep(1000);
 			goHome();
 			waitForLoad(driver);
 			//Thread.sleep(1000);
-			testValidBookName();
+			testValidBookName(driver, "C:\\Users\\cajy7\\OneDrive\\Documents\\Studies and Certs"
+					+ "\\Automation Testing Masters\\Phase 1\\Assessment Project\\Screenshots\\14-MyApp-ValidBookName.jpg");
 			waitForLoad(driver);
 			outputTestComplete = assertSearchComplete("Following information is extracted from the MyApp Database", searchComplete.getText());
+			TestScreenshots.takeSS(driver, "C:\\Users\\cajy7\\OneDrive\\Documents\\Studies and Certs"
+					+ "\\Automation Testing Masters\\Phase 1\\Assessment Project\\Screenshots\\14-MyApp-ValidBookNameOutput.jpg");
 			//Thread.sleep(1000);
 			goHome();
 			waitForLoad(driver);
@@ -84,12 +96,16 @@ public class MyAppHomePage {
 			testBlankBookName();
 			waitForLoad(driver);
 			blankTestComplete = assertBlankName("Please enter a Book Name", blankNameError.getText());
+			TestScreenshots.takeSS(driver, "C:\\Users\\cajy7\\OneDrive\\Documents\\Studies and Certs"
+					+ "\\Automation Testing Masters\\Phase 1\\Assessment Project\\Screenshots\\15-MyApp-BlankBookNameError.jpg");
 			//Thread.sleep(1000);
 			goHome();
 			//Thread.sleep(1000);
 			showAllBooks();
 			waitForLoad(driver);
 			outputTestComplete = assertSearchComplete("Following information is extracted from the MyApp Database", searchComplete.getText());
+			TestScreenshots.takeSS(driver, "C:\\Users\\cajy7\\OneDrive\\Documents\\Studies and Certs"
+					+ "\\Automation Testing Masters\\Phase 1\\Assessment Project\\Screenshots\\16-MyApp-showAllMGAnABooks.jpg");
 			//Thread.sleep(1000);
 			scrollDown(driver);
 			//Thread.sleep(1000);
@@ -99,6 +115,8 @@ public class MyAppHomePage {
 			showAllBookCategories();
 			waitForLoad(driver);
 			outputTestComplete = assertSearchComplete("Following information is extracted from the MyApp Database", searchComplete.getText());
+			TestScreenshots.takeSS(driver, "C:\\Users\\cajy7\\OneDrive\\Documents\\Studies and Certs"
+					+ "\\Automation Testing Masters\\Phase 1\\Assessment Project\\Screenshots\\17-MyApp-showAllBookCategories.jpg");
 			//Thread.sleep(1000);
 			scrollDown(driver);
 			//Thread.sleep(1000);
@@ -113,15 +131,19 @@ public class MyAppHomePage {
 		return testComplete;
 	}
 	
-	private void testValidBookID()
+	private void testValidBookID(WebDriver driver, String path)
+		throws IOException
 	{
 		bookID.sendKeys("BKIN_120");
+		TestScreenshots.takeSS(driver, path);
 		bookID.submit();
 	}
 	
-	private void testInvalidBookID()
+	private void testInvalidBookID(WebDriver driver, String path)
+		throws IOException
 	{
 		bookID.sendKeys("BKIN12335");
+		TestScreenshots.takeSS(driver, path);
 		bookID.submit();
 	}
 	
@@ -131,9 +153,11 @@ public class MyAppHomePage {
 		bookID.submit();
 	}
 	
-	private void testValidBookName()
+	private void testValidBookName(WebDriver driver, String path)
+		throws IOException
 	{
 		bookName.sendKeys("Harry");
+		TestScreenshots.takeSS(driver, path);
 		bookName.submit();
 	}
 	
@@ -193,7 +217,6 @@ public class MyAppHomePage {
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			assertPassed = false;
 		}
 		return assertPassed;
 	}
@@ -209,7 +232,6 @@ public class MyAppHomePage {
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			assertPassed = false;
 		}
 		return assertPassed;
 	}
@@ -225,7 +247,6 @@ public class MyAppHomePage {
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			assertPassed = false;
 		}
 		return assertPassed;
 	}
@@ -241,7 +262,6 @@ public class MyAppHomePage {
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			assertPassed = false;
 		}
 		return assertPassed;
 	}

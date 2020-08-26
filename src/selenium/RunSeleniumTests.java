@@ -16,6 +16,8 @@ public class RunSeleniumTests {
 		// TODO Auto-generated method stub
 		WebDriver driver = SeleniumChromeDriver.initiateChromeDriver();
 		driver.get("https://www.amazon.in");
+		TestScreenshots.takeSS(driver, "C:\\Users\\cajy7\\OneDrive\\Documents\\Studies and Certs"
+					+ "\\Automation Testing Masters\\Phase 1\\Assessment Project\\Screenshots\\00-Amazon-HomePage.jpg");
 		
 		AmazonPage ap = PageFactory.initElements(driver, AmazonPage.class);
 		Boolean completed = ap.startExtract(driver);
@@ -23,7 +25,7 @@ public class RunSeleniumTests {
 		{
 			driver.get("http://localhost:8080/SimpliLearnP1Test-Assessment/BookInfoExtracted.html");
 			Alert a1 = driver.switchTo().alert();
-			//Thread.sleep(1000);
+			Thread.sleep(30000);
 			a1.accept();
 			DisplayExtractedBookInfo.displayData(ap.bookCategories, ap.bookNames, driver);
 			//Thread.sleep(1000);
@@ -39,37 +41,41 @@ public class RunSeleniumTests {
 			boolean catExists = CheckBookInfo.checkCatInfo(ap.bookCategories);
 			WebDriver testCompletionWindow = SeleniumChromeDriver.initiateChromeDriver();
 			MyAppHomePage myapp = PageFactory.initElements(testCompletionWindow, MyAppHomePage.class);
+			boolean myAppTest = false;
+			
 			if(!nameExists && !catExists)
 			{
 				boolean test = InsertBookInfo.storeBookInformaton(ap.bookCategories, ap.bookNames);
 				if(test)
 				{
 					testCompletionWindow.get("http://localhost:8080/SimpliLearnP1Test-Assessment/DBOperationSuccessful.html");
-					//Thread.sleep(1000);
 					Alert a2 = testCompletionWindow.switchTo().alert();
+					Thread.sleep(30000);
 					a2.accept();
 					testCompletionWindow.get("http://localhost:8080/SimpliLearnP1Test-Assessment/index.html");
-					myapp.startHomeTest(testCompletionWindow);
+					TestScreenshots.takeSS(testCompletionWindow, "C:\\Users\\cajy7\\OneDrive\\Documents\\Studies and Certs"
+					+ "\\Automation Testing Masters\\Phase 1\\Assessment Project\\Screenshots\\08-MyApp-HomePage.jpg");
+					myAppTest = myapp.startHomeTest(testCompletionWindow);
 				}
 				else
 				{
-
 					testCompletionWindow.get("http://localhost:8080/SimpliLearnP1Test-Assessment/dbError.html");
+					Thread.sleep(30000);
 				}
 			}
 			else
 			{
 				testCompletionWindow.get("http://localhost:8080/SimpliLearnP1Test-Assessment/BookInfoAlreadyExists.html");
-				//Thread.sleep(1000);
+				Thread.sleep(30000);
 				Alert a3 = testCompletionWindow.switchTo().alert();
 				a3.accept();
 				testCompletionWindow.get("http://localhost:8080/SimpliLearnP1Test-Assessment/index.html");
-				if(myapp.startHomeTest(testCompletionWindow))
-					if(myapp.outputTestComplete && myapp.blankTestComplete && myapp.validityTestComplete)
-						System.out.println("Tests successfully completed");
-					else
-						System.out.println("Some error has occurred");
+				myAppTest = myapp.startHomeTest(testCompletionWindow);
 			}
+			
+			if(myAppTest)
+				if(myapp.outputTestComplete && myapp.blankTestComplete && myapp.validityTestComplete)
+					testCompletionWindow.get("http://localhost:8080/SimpliLearnP1Test-Assessment/TestsCompleted.html");
 		}
 		else
 		{

@@ -32,6 +32,8 @@ public class DisplayExtractedBookInfo {
 			driver.get("C:\\Users\\cajy7\\OneDrive\\Documents\\Studies and Certs"
 				+ "\\Automation Testing Masters\\Phase 1\\Assessment Project\\"
 				+ "SimpliLearnP1Test-Assessment\\build\\AmazonExtractedBookInfo.txt");
+			TestScreenshots.takeSS(driver, "C:\\Users\\cajy7\\OneDrive\\Documents\\Studies and Certs"
+					+ "\\Automation Testing Masters\\Phase 1\\Assessment Project\\Screenshots\\06-Local-extractedInfoDisplayed.jpg");
 		}
 		catch(IOException ie)
 		{
