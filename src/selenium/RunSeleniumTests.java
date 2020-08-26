@@ -45,7 +45,7 @@ public class RunSeleniumTests {
 				if(test)
 				{
 					testCompletionWindow.get("http://localhost:8080/SimpliLearnP1Test-Assessment/DBOperationSuccessful.html");
-					Thread.sleep(10000);
+					Thread.sleep(1000);
 					Alert a2 = testCompletionWindow.switchTo().alert();
 					a2.accept();
 					testCompletionWindow.get("http://localhost:8080/SimpliLearnP1Test-Assessment/index.html");
@@ -60,7 +60,7 @@ public class RunSeleniumTests {
 			else
 			{
 				testCompletionWindow.get("http://localhost:8080/SimpliLearnP1Test-Assessment/BookInfoAlreadyExists.html");
-				Thread.sleep(5000);
+				Thread.sleep(1000);
 				Alert a3 = testCompletionWindow.switchTo().alert();
 				a3.accept();
 				testCompletionWindow.get("http://localhost:8080/SimpliLearnP1Test-Assessment/index.html");
