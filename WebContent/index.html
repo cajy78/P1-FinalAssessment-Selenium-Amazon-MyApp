@@ -2,8 +2,70 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>MyApp</title>
+<title>MyApp Library</title>
 </head>
 <body>
+<h1>Welcome to the ABCXYZ Book Library</h1>
+<div>
+</div>
+	<form method="get" action="DisplayBooks">
+		<table>
+			<tr>
+				<td colspan="3"><label>Get Most Gifted Action and Adventure Book by ID</label></td>
+			</tr>
+			<tr>
+				<td><label>Enter the Book ID:</label></td>
+				<td><input type="hidden" name="searchVia" value="viaBookID"></td>
+				<td><input type="text" name="bookID" id="BookIdentification"></td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="Submit" value="Get Book" name="getBookbyID" id="getBookbyID"></td>
+			</tr>
+		</table>
+	</form>
+	<br>
+	<form method="get" action="DisplayBooks">
+		<table>
+			<tr>
+				<td colspan="2"><label>Get Book by Name</label></td>
+			</tr>
+			<tr>
+				<td><label>Enter the Book Name</label></td>
+				<td><input type="hidden" name="searchVia" value="viaBookName"></td>
+				<td><input type="text" name="bookName" id="BookName"></td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="Submit" value="Get Book" name="getBookbyName" id="getBookbyName"></td>
+			</tr>
+		</table>
+	</form>
+	<br>
+		<form method="get" action="DisplayBooks">
+		<table>
+			<tr>
+				<td><label>Show All Books</label></td>
+			</tr>
+			<tr>
+				<td><input type="hidden" name="searchVia" value="allBooks"></td>
+			</tr>
+			<tr>
+				<td><input type="Submit" value="Click to Show" name="getAllBooks" id="getAllBooks"></td>
+			</tr>
+		</table>
+	</form>
+	<br>
+		<form method="get" action="DisplayBooks">
+		<table>
+			<tr>
+				<td><label>Show All Book Categories</label></td>
+			</tr>
+			<tr>
+				<td><input type="hidden" name="searchVia" value="allBookCategories"></td>
+			</tr>
+			<tr>
+				<td><input type="Submit" value="Click to Show" name="getAllBookCat" id="getAllBookCat"></td>
+			</tr>
+		</table>
+	</form>
 </body>
 </html>

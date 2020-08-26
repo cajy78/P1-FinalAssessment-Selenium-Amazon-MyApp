@@ -9,7 +9,7 @@ public class CreateConnection {
 
 	private static Connection con;
 	
-	protected static Connection InitiateDBConnection()
+	public static Connection InitiateDBConnection()
 	{
 		Properties dbProp = new Properties();
 		try {
