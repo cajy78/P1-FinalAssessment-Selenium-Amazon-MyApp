@@ -14,25 +14,24 @@ public class RunSeleniumTests {
 
 	public static void main(String[] args) throws InterruptedException, IOException{
 		// TODO Auto-generated method stub
+		String projectPath = "C:\\Users\\cajy7\\OneDrive\\Documents\\Studies and Certs"
+				+ "\\Automation Testing Masters\\Phase 1\\Assessment Project\\";
 		WebDriver driver = SeleniumChromeDriver.initiateChromeDriver();
 		driver.get("https://www.amazon.in");
-		TestScreenshots.takeSS(driver, "C:\\Users\\cajy7\\OneDrive\\Documents\\Studies and Certs"
-					+ "\\Automation Testing Masters\\Phase 1\\Assessment Project\\Screenshots\\00-Amazon-HomePage.jpg");
+		TestScreenshots.takeSS(driver, projectPath+"Screenshots\\00-Amazon-HomePage.jpg");
 		
 		AmazonPage ap = PageFactory.initElements(driver, AmazonPage.class);
-		Boolean completed = ap.startExtract(driver);
+		Boolean completed = ap.startExtract(driver, projectPath);
 		if(completed)
 		{
 			driver.get("http://localhost:8080/SimpliLearnP1Test-Assessment/BookInfoExtracted.html");
 			Alert a1 = driver.switchTo().alert();
-			Thread.sleep(30000);
+			//Thread.sleep(30000);
 			a1.accept();
 			DisplayExtractedBookInfo.displayData(ap.bookCategories, ap.bookNames, driver);
-			//Thread.sleep(1000);
+			Thread.sleep(5000);
 			driver.close();
-			PrintStream fw = new PrintStream("C:\\Users\\cajy7\\OneDrive\\Documents\\Studies and Certs\\"
-					+ "Automation Testing Masters\\Phase 1\\Assessment Project\\SimpliLearnP1Test-Assessment"
-					+ "\\build\\AmazonExtractedBookInfo.txt");
+			PrintStream fw = new PrintStream(projectPath+"SimpliLearnP1Test-Assessment\\build\\AmazonExtractedBookInfo.txt");
 			fw.println("");
 			fw.flush();
 			fw.close();
@@ -50,27 +49,26 @@ public class RunSeleniumTests {
 				{
 					testCompletionWindow.get("http://localhost:8080/SimpliLearnP1Test-Assessment/DBOperationSuccessful.html");
 					Alert a2 = testCompletionWindow.switchTo().alert();
-					Thread.sleep(30000);
+					//Thread.sleep(30000);
 					a2.accept();
 					testCompletionWindow.get("http://localhost:8080/SimpliLearnP1Test-Assessment/index.html");
-					TestScreenshots.takeSS(testCompletionWindow, "C:\\Users\\cajy7\\OneDrive\\Documents\\Studies and Certs"
-					+ "\\Automation Testing Masters\\Phase 1\\Assessment Project\\Screenshots\\08-MyApp-HomePage.jpg");
-					myAppTest = myapp.startHomeTest(testCompletionWindow);
+					TestScreenshots.takeSS(testCompletionWindow, projectPath + "Screenshots\\08-MyApp-HomePage.jpg");
+					myAppTest = myapp.startHomeTest(testCompletionWindow, projectPath);
 				}
 				else
 				{
 					testCompletionWindow.get("http://localhost:8080/SimpliLearnP1Test-Assessment/dbError.html");
-					Thread.sleep(30000);
+					//Thread.sleep(30000);
 				}
 			}
 			else
 			{
 				testCompletionWindow.get("http://localhost:8080/SimpliLearnP1Test-Assessment/BookInfoAlreadyExists.html");
-				Thread.sleep(30000);
+				//Thread.sleep(30000);
 				Alert a3 = testCompletionWindow.switchTo().alert();
 				a3.accept();
 				testCompletionWindow.get("http://localhost:8080/SimpliLearnP1Test-Assessment/index.html");
-				myAppTest = myapp.startHomeTest(testCompletionWindow);
+				myAppTest = myapp.startHomeTest(testCompletionWindow, projectPath);
 			}
 			
 			if(myAppTest)

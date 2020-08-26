@@ -42,28 +42,24 @@ public class MyAppHomePage {
 	@FindBy(how = How.ID, using="goHome")
 	private WebElement homeLink;
 	
-	public boolean startHomeTest(WebDriver driver)
+	public boolean startHomeTest(WebDriver driver, String projectPath)
 		throws InterruptedException, IOException
 	{
 		boolean testComplete = false;
 		try
 		{
 			//Thread.sleep(1000);
-			testValidBookID(driver, "C:\\Users\\cajy7\\OneDrive\\Documents\\Studies and Certs"
-					+ "\\Automation Testing Masters\\Phase 1\\Assessment Project\\Screenshots\\09-MyApp-ValidBookID.jpg");
+			testValidBookID(driver, projectPath + "Screenshots\\09-MyApp-ValidBookID.jpg");
 			waitForLoad(driver);
 			//Thread.sleep(1000);
 			outputTestComplete = assertSearchComplete("Following information is extracted from the MyApp Database", searchComplete.getText());
-			TestScreenshots.takeSS(driver, "C:\\Users\\cajy7\\OneDrive\\Documents\\Studies and Certs"
-					+ "\\Automation Testing Masters\\Phase 1\\Assessment Project\\Screenshots\\10-MyApp-BookbyID.jpg");
+			TestScreenshots.takeSS(driver, projectPath + "Screenshots\\10-MyApp-BookbyID.jpg");
 			goHome();
 			waitForLoad(driver);
 			//Thread.sleep(1000);
-			testInvalidBookID(driver, "C:\\Users\\cajy7\\OneDrive\\Documents\\Studies and Certs"
-					+ "\\Automation Testing Masters\\Phase 1\\Assessment Project\\Screenshots\\11-MyApp-invalidID.jpg");
+			testInvalidBookID(driver, projectPath + "Screenshots\\11-MyApp-invalidID.jpg");
 			validityTestComplete = assertInvalidInput("No data exists with the current selection", invalidInput.getText());
-			TestScreenshots.takeSS(driver, "C:\\Users\\cajy7\\OneDrive\\Documents\\Studies and Certs"
-					+ "\\Automation Testing Masters\\Phase 1\\Assessment Project\\Screenshots\\12-MyApp-invalidInput.jpg");
+			TestScreenshots.takeSS(driver, projectPath + "Screenshots\\12-MyApp-invalidInput.jpg");
 			waitForLoad(driver);
 			//Thread.sleep(1000);
 			goHome();
@@ -71,18 +67,15 @@ public class MyAppHomePage {
 			//Thread.sleep(1000);
 			testBlankBookID();
 			blankTestComplete = assertBlankID("Please enter a Book ID", blankIDError.getText());
-			TestScreenshots.takeSS(driver, "C:\\Users\\cajy7\\OneDrive\\Documents\\Studies and Certs"
-					+ "\\Automation Testing Masters\\Phase 1\\Assessment Project\\Screenshots\\13-MyApp-blankBookIDError.jpg");
+			TestScreenshots.takeSS(driver, projectPath + "Screenshots\\13-MyApp-blankBookIDError.jpg");
 			//Thread.sleep(1000);
 			goHome();
 			waitForLoad(driver);
 			//Thread.sleep(1000);
-			testValidBookName(driver, "C:\\Users\\cajy7\\OneDrive\\Documents\\Studies and Certs"
-					+ "\\Automation Testing Masters\\Phase 1\\Assessment Project\\Screenshots\\14-MyApp-ValidBookName.jpg");
+			testValidBookName(driver, projectPath + "Screenshots\\14-MyApp-ValidBookName.jpg");
 			waitForLoad(driver);
 			outputTestComplete = assertSearchComplete("Following information is extracted from the MyApp Database", searchComplete.getText());
-			TestScreenshots.takeSS(driver, "C:\\Users\\cajy7\\OneDrive\\Documents\\Studies and Certs"
-					+ "\\Automation Testing Masters\\Phase 1\\Assessment Project\\Screenshots\\14-MyApp-ValidBookNameOutput.jpg");
+			TestScreenshots.takeSS(driver, projectPath + "Screenshots\\14-MyApp-ValidBookNameOutput.jpg");
 			//Thread.sleep(1000);
 			goHome();
 			waitForLoad(driver);
@@ -96,16 +89,14 @@ public class MyAppHomePage {
 			testBlankBookName();
 			waitForLoad(driver);
 			blankTestComplete = assertBlankName("Please enter a Book Name", blankNameError.getText());
-			TestScreenshots.takeSS(driver, "C:\\Users\\cajy7\\OneDrive\\Documents\\Studies and Certs"
-					+ "\\Automation Testing Masters\\Phase 1\\Assessment Project\\Screenshots\\15-MyApp-BlankBookNameError.jpg");
+			TestScreenshots.takeSS(driver, projectPath + "Screenshots\\15-MyApp-BlankBookNameError.jpg");
 			//Thread.sleep(1000);
 			goHome();
 			//Thread.sleep(1000);
 			showAllBooks();
 			waitForLoad(driver);
 			outputTestComplete = assertSearchComplete("Following information is extracted from the MyApp Database", searchComplete.getText());
-			TestScreenshots.takeSS(driver, "C:\\Users\\cajy7\\OneDrive\\Documents\\Studies and Certs"
-					+ "\\Automation Testing Masters\\Phase 1\\Assessment Project\\Screenshots\\16-MyApp-showAllMGAnABooks.jpg");
+			TestScreenshots.takeSS(driver, projectPath + "Screenshots\\16-MyApp-showAllMGAnABooks.jpg");
 			//Thread.sleep(1000);
 			scrollDown(driver);
 			//Thread.sleep(1000);
@@ -115,8 +106,7 @@ public class MyAppHomePage {
 			showAllBookCategories();
 			waitForLoad(driver);
 			outputTestComplete = assertSearchComplete("Following information is extracted from the MyApp Database", searchComplete.getText());
-			TestScreenshots.takeSS(driver, "C:\\Users\\cajy7\\OneDrive\\Documents\\Studies and Certs"
-					+ "\\Automation Testing Masters\\Phase 1\\Assessment Project\\Screenshots\\17-MyApp-showAllBookCategories.jpg");
+			TestScreenshots.takeSS(driver, projectPath + "Screenshots\\17-MyApp-showAllBookCategories.jpg");
 			//Thread.sleep(1000);
 			scrollDown(driver);
 			//Thread.sleep(1000);

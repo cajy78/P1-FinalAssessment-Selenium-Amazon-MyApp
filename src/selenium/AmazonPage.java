@@ -38,24 +38,22 @@ public class AmazonPage {
 	@FindAll({@FindBy(how = How.CLASS_NAME, using="p13n-sc-truncated")})
 	private List<WebElement> bookElements = new ArrayList<WebElement>();
 	
-	public boolean startExtract(WebDriver driver)
+	public boolean startExtract(WebDriver driver, String projectPath)
 		throws IOException
 	{
 		Boolean complete = false;
 		try
 		{
-			selectBooks(driver);
+			selectBooks(driver, projectPath);
 			waitForLoad(driver);
-			scrollDown(driver);
+			scrollDown(driver, projectPath);
 			getAllBookCategories();
 			selectActionAdventure();
 			waitForLoad(driver);
-			TestScreenshots.takeSS(driver, "C:\\Users\\cajy7\\OneDrive\\Documents\\Studies and Certs"
-					+ "\\Automation Testing Masters\\Phase 1\\Assessment Project\\Screenshots\\03-Amazon-ActionAndAdventure-List.jpg");
+			TestScreenshots.takeSS(driver, projectPath + "Screenshots\\03-Amazon-ActionAndAdventure-List.jpg");
 			listTopBooks();
 			waitForLoad(driver);
-			TestScreenshots.takeSS(driver, "C:\\Users\\cajy7\\OneDrive\\Documents\\Studies and Certs"
-					+ "\\Automation Testing Masters\\Phase 1\\Assessment Project\\Screenshots\\04-Amazon-MostGifted-ActionAndAdventure-books.jpg");
+			TestScreenshots.takeSS(driver, projectPath + "Screenshots\\04-Amazon-MostGifted-ActionAndAdventure-books.jpg");
 			getAllBooksNames();
 			waitForLoad(driver);
 			complete = true;
@@ -68,23 +66,21 @@ public class AmazonPage {
 		return complete;
 	}
 	
-	private void selectBooks(WebDriver driver)
+	private void selectBooks(WebDriver driver, String projectPath)
 		throws IOException
 	{
 		dropDown = new Select(navSearchDropDown);
 		dropDown.selectByIndex(11);
-		TestScreenshots.takeSS(driver, "C:\\Users\\cajy7\\OneDrive\\Documents\\Studies and Certs"
-				+ "\\Automation Testing Masters\\Phase 1\\Assessment Project\\Screenshots\\01-AmazonHome-BookSelect.jpg");
+		TestScreenshots.takeSS(driver, projectPath + "Screenshots\\01-AmazonHome-BookSelect.jpg");
 		searchBar.submit();
 	}
 	
-	private void scrollDown(WebDriver driver)
+	private void scrollDown(WebDriver driver, String projectPath)
 		throws IOException
 	{
 		JavascriptExecutor jse  = (JavascriptExecutor) driver;
 		jse.executeScript("arguments[0].scrollIntoView();", actionAdventureLink);
-		TestScreenshots.takeSS(driver, "C:\\Users\\cajy7\\OneDrive\\Documents\\Studies and Certs"
-				+ "\\Automation Testing Masters\\Phase 1\\Assessment Project\\Screenshots\\02-Amazon-Book-CategoryList.jpg");
+		TestScreenshots.takeSS(driver, projectPath + "Screenshots\\02-Amazon-Book-CategoryList.jpg");
 	}
 	
 	private void selectActionAdventure()
