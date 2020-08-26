@@ -10,8 +10,6 @@ import myAppDBOperation.InsertBookInfo;
 import java.io.PrintStream;
 import java.io.IOException;
 
-import javax.swing.JOptionPane;
-
 public class RunSeleniumTests {
 
 	public static void main(String[] args) throws InterruptedException, IOException{

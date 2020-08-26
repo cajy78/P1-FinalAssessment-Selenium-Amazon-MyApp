@@ -4,10 +4,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-//import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
-//import org.openqa.selenium.support.ui.WebDriverWait;
 import org.junit.Assert;
 
 public class MyAppHomePage {
@@ -48,38 +48,59 @@ public class MyAppHomePage {
 		try
 		{
 			testValidBookID();
-			Thread.sleep(3000);
+			waitForLoad(driver);
+			Thread.sleep(1000);
 			outputTestComplete = assertSearchComplete("Following information is extracted from the MyApp Database", searchComplete.getText());
 			goHome();
+			waitForLoad(driver);
+			Thread.sleep(1000);
 			testInvalidBookID();
 			validityTestComplete = assertInvalidInput("No data exists with the current selection", invalidInput.getText());
-			Thread.sleep(3000);
+			waitForLoad(driver);
+			Thread.sleep(1000);
 			goHome();
+			waitForLoad(driver);
+			Thread.sleep(1000);
 			testBlankBookID();
 			blankTestComplete = assertBlankID("Please enter a Book ID", blankIDError.getText());
-			Thread.sleep(3000);
+			Thread.sleep(1000);
 			goHome();
+			waitForLoad(driver);
+			Thread.sleep(1000);
 			testValidBookName();
+			waitForLoad(driver);
 			outputTestComplete = assertSearchComplete("Following information is extracted from the MyApp Database", searchComplete.getText());
-			Thread.sleep(3000);
+			Thread.sleep(1000);
 			goHome();
+			waitForLoad(driver);
+			Thread.sleep(1000);
 			testInvalidBookName();
+			waitForLoad(driver);
 			validityTestComplete = assertInvalidInput("No data exists with the current selection", invalidInput.getText());
-			Thread.sleep(3000);
+			Thread.sleep(1000);
 			goHome();
+			Thread.sleep(1000);
 			testBlankBookName();
+			waitForLoad(driver);
 			blankTestComplete = assertBlankName("Please enter a Book Name", blankNameError.getText());
-			Thread.sleep(3000);
+			Thread.sleep(1000);
 			goHome();
+			Thread.sleep(1000);
 			showAllBooks();
+			waitForLoad(driver);
 			outputTestComplete = assertSearchComplete("Following information is extracted from the MyApp Database", searchComplete.getText());
-			Thread.sleep(3000);
+			Thread.sleep(1000);
 			scrollDown(driver);
+			Thread.sleep(1000);
 			goHome();
+			waitForLoad(driver);
+			Thread.sleep(1000);
 			showAllBookCategories();
+			waitForLoad(driver);
 			outputTestComplete = assertSearchComplete("Following information is extracted from the MyApp Database", searchComplete.getText());
-			Thread.sleep(3000);
+			Thread.sleep(1000);
 			scrollDown(driver);
+			Thread.sleep(1000);
 			goHome();
 			testComplete = true;
 		}
@@ -148,17 +169,17 @@ public class MyAppHomePage {
 		jse.executeScript("arguments[0].scrollIntoView();", homeLink);
 	}
 	
-//	private void waitForLoad(WebDriver driver) 
-//	{
-//        ExpectedCondition<Boolean> pageLoadCondition = new
-//                ExpectedCondition<Boolean>() {
-//                    public Boolean apply(WebDriver driver) {
-//                        return ((JavascriptExecutor)driver).executeScript("return document.readyState").equals("complete");
-//                    }
-//                };
-//        WebDriverWait wait = new WebDriverWait(driver, 30);
-//        wait.until(pageLoadCondition);
-//    }
+	private void waitForLoad(WebDriver driver) 
+	{
+        ExpectedCondition<Boolean> pageLoadCondition = new
+                ExpectedCondition<Boolean>() {
+                    public Boolean apply(WebDriver driver) {
+                        return ((JavascriptExecutor)driver).executeScript("return document.readyState").equals("complete");
+                    }
+                };
+        WebDriverWait wait = new WebDriverWait(driver, 30);
+        wait.until(pageLoadCondition);
+    }
 	
 	private boolean assertInvalidInput(String expectedResult, String actualResult)
 	{
