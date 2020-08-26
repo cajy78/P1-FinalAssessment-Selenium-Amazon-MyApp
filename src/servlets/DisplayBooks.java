@@ -33,8 +33,8 @@ public class DisplayBooks extends HttpServlet {
 				if(bookID.equals(""))
 				{
 					pw.write("<h1>Book Info Page</h1>");
-					pw.write("<p style='color:red'>Please enter a Book ID</p>");
-					pw.write("<p style='color:red'>Book ID field cannot be left blank while searching for Books via ID</p>");
+					pw.write("<p style='color:red' class='error' id='blankIDErrorL1'>Please enter a Book ID</p>");
+					pw.write("<p style='color:red' class='error' id='blankIDErrorL2'>Book ID field cannot be left blank while searching for Books via ID</p>");
 					pw.write("<br><br><a href='index.html' id='goHome'>ABCXYZ Book Master</a>");
 				}
 				else
@@ -48,8 +48,8 @@ public class DisplayBooks extends HttpServlet {
 				if(bookName.equals(""))
 				{
 					pw.write("<h1>Book Info Page</h1>");
-					pw.write("<p style='color:red'>Please enter a Book Name</p>");
-					pw.write("<p style='color:red'>Book Name field cannot be left blank while searching for Books via Names</p>");
+					pw.write("<p style='color:red' class='error' id='blankNameErrorL1'>Please enter a Book Name</p>");
+					pw.write("<p style='color:red' class='error' id='blankNameErrorL2'>Book Name field cannot be left blank while searching for Books via Names</p>");
 					pw.write("<br><br><a href='index.html' id='goHome'>ABCXYZ Book Master</a>");
 				}
 				else
@@ -59,7 +59,6 @@ public class DisplayBooks extends HttpServlet {
 			}
 			else if(search.equals("allBookCategories"))
 			{
-				
 				query = "Select * from book_categories";
 			}
 			else if(search.equals("allBooks"))
@@ -75,6 +74,8 @@ public class DisplayBooks extends HttpServlet {
 				if(rs.next())
 				{
 					pw.write("<h1>Book Info Page</h1>");
+					pw.write("<p style='color:green' class='success'>Following information is extracted from"
+							+ " the MyApp Database</p>");
 					pw.write("<table border=1>");
 					pw.write("<thead><tr><th>ID</th><th>Name / Category</th></tr></thead>");
 					pw.write("<tbody>");
@@ -93,7 +94,7 @@ public class DisplayBooks extends HttpServlet {
 				else
 				{
 					pw.write("<h1>Product Info Page</h1>");
-					pw.write("<p style='color:red'>No data exists with the current selection</p>");
+					pw.write("<p style='color:red' class='error' id='invalidInput'>No data exists with the current selection</p>");
 					pw.write("<p style='color:red'>Please enter correct Book ID Or Name Or Category</p>");
 					pw.write("<br><br><a href='index.html' id='goHome'>ABCXYZ Book Master</a>");
 				}

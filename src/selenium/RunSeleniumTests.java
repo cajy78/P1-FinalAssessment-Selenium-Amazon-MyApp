@@ -25,10 +25,10 @@ public class RunSeleniumTests {
 		{
 			driver.get("http://localhost:8080/SimpliLearnP1Test-Assessment/BookInfoExtracted.html");
 			Alert a1 = driver.switchTo().alert();
-			Thread.sleep(8000);
+			Thread.sleep(1000);
 			a1.accept();
 			DisplayExtractedBookInfo.displayData(ap.bookCategories, ap.bookNames, driver);
-			Thread.sleep(10000);
+			Thread.sleep(1000);
 			driver.close();
 			PrintStream fw = new PrintStream("C:\\Users\\cajy7\\OneDrive\\Documents\\Studies and Certs\\"
 					+ "Automation Testing Masters\\Phase 1\\Assessment Project\\SimpliLearnP1Test-Assessment"
@@ -66,7 +66,11 @@ public class RunSeleniumTests {
 				Alert a3 = testCompletionWindow.switchTo().alert();
 				a3.accept();
 				testCompletionWindow.get("http://localhost:8080/SimpliLearnP1Test-Assessment/index.html");
-				myapp.startHomeTest(testCompletionWindow);
+				if(myapp.startHomeTest(testCompletionWindow))
+					if(myapp.outputTestComplete && myapp.blankTestComplete && myapp.validityTestComplete)
+						System.out.println("Tests successfully completed");
+					else
+						System.out.println("Some error has occurred");
 			}
 		}
 		else

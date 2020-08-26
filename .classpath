@@ -22,5 +22,6 @@
 	<classpathentry kind="lib" path="C:/Users/cajy7/Downloads/selenium-java-3.141.59/libs/okhttp-3.11.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/cajy7/Downloads/selenium-java-3.141.59/libs/okio-1.14.0.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files/MySQL/mysql-connector-java-8.0.21/mysql-connector-java-8.0.21.jar"/>
+	<classpathentry kind="lib" path="C:/Users/cajy7/Downloads/junit-4.13.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

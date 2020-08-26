@@ -4,15 +4,30 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-import org.openqa.selenium.support.ui.ExpectedCondition;
+//import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.support.ui.WebDriverWait;
+//import org.openqa.selenium.support.ui.WebDriverWait;
+import org.junit.Assert;
 
 public class MyAppHomePage {
+	
+	public boolean validityTestComplete, blankTestComplete, outputTestComplete;
 
 	@FindBy(how = How.ID, using="BookIdentification")
 	private WebElement bookID;
+	
+	@FindBy(how = How.ID, using="invalidinput")
+	private WebElement invalidInput;
+	
+	@FindBy(how = How.ID, using="blankIDErrorL1")
+	private WebElement blankIDError;
+	
+	@FindBy(how = How.CLASS_NAME, using="success")
+	private WebElement searchComplete;
+	
+	@FindBy(how = How.ID, using="blankNameErrorL1")
+	private WebElement blankNameError;
 	
 	@FindBy(how = How.ID_OR_NAME, using="bookName")
 	private WebElement bookName;
@@ -34,27 +49,35 @@ public class MyAppHomePage {
 		{
 			testValidBookID();
 			Thread.sleep(3000);
+			outputTestComplete = assertSearchComplete("Following information is extracted from the MyApp Database", searchComplete.getText());
 			goHome();
 			testInvalidBookID();
+			validityTestComplete = assertInvalidInput("No data exists with the current selection", invalidInput.getText());
 			Thread.sleep(3000);
 			goHome();
 			testBlankBookID();
+			blankTestComplete = assertBlankID("Please enter a Book ID", blankIDError.getText());
 			Thread.sleep(3000);
 			goHome();
 			testValidBookName();
+			outputTestComplete = assertSearchComplete("Following information is extracted from the MyApp Database", searchComplete.getText());
 			Thread.sleep(3000);
 			goHome();
 			testInvalidBookName();
+			validityTestComplete = assertInvalidInput("No data exists with the current selection", invalidInput.getText());
 			Thread.sleep(3000);
 			goHome();
 			testBlankBookName();
+			blankTestComplete = assertBlankName("Please enter a Book Name", blankNameError.getText());
 			Thread.sleep(3000);
 			goHome();
 			showAllBooks();
+			outputTestComplete = assertSearchComplete("Following information is extracted from the MyApp Database", searchComplete.getText());
 			Thread.sleep(3000);
 			scrollDown(driver);
 			goHome();
 			showAllBookCategories();
+			outputTestComplete = assertSearchComplete("Following information is extracted from the MyApp Database", searchComplete.getText());
 			Thread.sleep(3000);
 			scrollDown(driver);
 			goHome();
@@ -62,6 +85,7 @@ public class MyAppHomePage {
 		}
 		catch(NoSuchElementException nse)
 		{
+			nse.printStackTrace();
 			testComplete = false;
 		}
 		return testComplete;
@@ -124,15 +148,79 @@ public class MyAppHomePage {
 		jse.executeScript("arguments[0].scrollIntoView();", homeLink);
 	}
 	
-	private void waitForLoad(WebDriver driver) 
+//	private void waitForLoad(WebDriver driver) 
+//	{
+//        ExpectedCondition<Boolean> pageLoadCondition = new
+//                ExpectedCondition<Boolean>() {
+//                    public Boolean apply(WebDriver driver) {
+//                        return ((JavascriptExecutor)driver).executeScript("return document.readyState").equals("complete");
+//                    }
+//                };
+//        WebDriverWait wait = new WebDriverWait(driver, 30);
+//        wait.until(pageLoadCondition);
+//    }
+	
+	private boolean assertInvalidInput(String expectedResult, String actualResult)
 	{
-        ExpectedCondition<Boolean> pageLoadCondition = new
-                ExpectedCondition<Boolean>() {
-                    public Boolean apply(WebDriver driver) {
-                        return ((JavascriptExecutor)driver).executeScript("return document.readyState").equals("complete");
-                    }
-                };
-        WebDriverWait wait = new WebDriverWait(driver, 30);
-        wait.until(pageLoadCondition);
-    }
+		boolean assertPassed = false;
+		try
+		{
+			Assert.assertEquals(expectedResult, actualResult);
+			assertPassed = true;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			assertPassed = false;
+		}
+		return assertPassed;
+	}
+	
+	private boolean assertBlankID(String expectedResult, String actualResult)
+	{
+		boolean assertPassed = false;
+		try
+		{
+			Assert.assertEquals(expectedResult, actualResult);
+			assertPassed = true;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			assertPassed = false;
+		}
+		return assertPassed;
+	}
+	
+	private boolean assertSearchComplete(String expectedResult, String actualResult)
+	{
+		boolean assertPassed = false;
+		try
+		{
+			Assert.assertEquals(expectedResult, actualResult);
+			assertPassed = true;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			assertPassed = false;
+		}
+		return assertPassed;
+	}
+	
+	private boolean assertBlankName(String expectedResult, String actualResult)
+	{
+		boolean assertPassed = false;
+		try
+		{
+			Assert.assertEquals(expectedResult, actualResult);
+			assertPassed = true;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			assertPassed = false;
+		}
+		return assertPassed;
+	}
 }
