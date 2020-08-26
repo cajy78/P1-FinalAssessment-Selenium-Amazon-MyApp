@@ -3,12 +3,18 @@ package selenium;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.Alert;
+
+import myAppDBOperation.CheckBookInfo;
 import myAppDBOperation.InsertBookInfo;
+
+import java.io.PrintStream;
+import java.io.IOException;
+
 import javax.swing.JOptionPane;
 
 public class RunSeleniumTests {
 
-	public static void main(String[] args) throws InterruptedException{
+	public static void main(String[] args) throws InterruptedException, IOException{
 		// TODO Auto-generated method stub
 		WebDriver driver = SeleniumChromeDriver.initiateChromeDriver();
 		driver.get("https://www.amazon.in");
@@ -24,22 +30,43 @@ public class RunSeleniumTests {
 			DisplayExtractedBookInfo.displayData(ap.bookCategories, ap.bookNames, driver);
 			Thread.sleep(10000);
 			driver.close();
-			int selection = JOptionPane.showConfirmDialog(null, "Do you want to add the extracted book information from Amazon to "
-					+ "the MyApp database", "Database Operation", JOptionPane.OK_CANCEL_OPTION);
-			if(selection==0)
+			PrintStream fw = new PrintStream("C:\\Users\\cajy7\\OneDrive\\Documents\\Studies and Certs\\"
+					+ "Automation Testing Masters\\Phase 1\\Assessment Project\\SimpliLearnP1Test-Assessment"
+					+ "\\build\\AmazonExtractedBookInfo.txt");
+			fw.println("");
+			fw.flush();
+			fw.close();
+			
+			boolean nameExists = CheckBookInfo.checkNameInfo(ap.bookNames);
+			boolean catExists = CheckBookInfo.checkCatInfo(ap.bookCategories);
+			WebDriver testCompletionWindow = SeleniumChromeDriver.initiateChromeDriver();
+			MyAppHomePage myapp = PageFactory.initElements(testCompletionWindow, MyAppHomePage.class);
+			if(!nameExists && !catExists)
 			{
 				boolean test = InsertBookInfo.storeBookInformaton(ap.bookCategories, ap.bookNames);
-				WebDriver testCompletionWindow = SeleniumChromeDriver.initiateChromeDriver();
 				if(test)
 				{
-					JOptionPane.showMessageDialog(null, "Database operation successful. Click OK to continue","Success", JOptionPane.DEFAULT_OPTION);
+					testCompletionWindow.get("http://localhost:8080/SimpliLearnP1Test-Assessment/DBOperationSuccessful.html");
+					Thread.sleep(10000);
+					Alert a2 = testCompletionWindow.switchTo().alert();
+					a2.accept();
 					testCompletionWindow.get("http://localhost:8080/SimpliLearnP1Test-Assessment/index.html");
+					myapp.startHomeTest(testCompletionWindow);
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(null,"Error occured in adding values to the database. "
-							+ "Check console log for exception stack trace","Database Error",JOptionPane.ERROR_MESSAGE);
+
+					testCompletionWindow.get("http://localhost:8080/SimpliLearnP1Test-Assessment/dbError.html");
 				}
+			}
+			else
+			{
+				testCompletionWindow.get("http://localhost:8080/SimpliLearnP1Test-Assessment/BookInfoAlreadyExists.html");
+				Thread.sleep(5000);
+				Alert a3 = testCompletionWindow.switchTo().alert();
+				a3.accept();
+				testCompletionWindow.get("http://localhost:8080/SimpliLearnP1Test-Assessment/index.html");
+				myapp.startHomeTest(testCompletionWindow);
 			}
 		}
 		else

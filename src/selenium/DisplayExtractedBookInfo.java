@@ -11,23 +11,25 @@ public class DisplayExtractedBookInfo {
 	{
 		try
 		{
-		PrintStream fw = new PrintStream("C:\\Users\\cajy7\\OneDrive\\Documents\\Studies and Certs\\"
+			PrintStream fw = new PrintStream("C:\\Users\\cajy7\\OneDrive\\Documents\\Studies and Certs\\"
 				+ "Automation Testing Masters\\Phase 1\\Assessment Project\\SimpliLearnP1Test-Assessment"
 				+ "\\build\\AmazonExtractedBookInfo.txt");
-		fw.println("Book categories from Amazon");
-		for(String i:categories)
-		{
-			fw.println(i);
-		}
-		fw.println("");
-		fw.println("Most Gifted Action and Adventure book names");
-		for(String i:names)
-		{
-			fw.println(i);
-		}
-		fw.flush();
-		fw.close();
-		driver.get("C:\\Users\\cajy7\\OneDrive\\Documents\\Studies and Certs"
+			fw.println("Following Information will be added into the MyApp Database");
+			fw.println("");
+			fw.println("Book categories from Amazon");
+			for(String i:categories)
+			{
+				fw.println(i);
+			}
+			fw.println("");
+			fw.println("Most Gifted Action and Adventure book names");
+			for(String i:names)
+			{
+				fw.println(i);
+			}
+			fw.flush();
+			fw.close();
+			driver.get("C:\\Users\\cajy7\\OneDrive\\Documents\\Studies and Certs"
 				+ "\\Automation Testing Masters\\Phase 1\\Assessment Project\\"
 				+ "SimpliLearnP1Test-Assessment\\build\\AmazonExtractedBookInfo.txt");
 		}

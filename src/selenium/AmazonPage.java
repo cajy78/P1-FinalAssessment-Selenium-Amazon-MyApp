@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.FindAll;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Iterator;
+
 
 public class AmazonPage {
 

@@ -35,7 +35,7 @@ public class DisplayBooks extends HttpServlet {
 					pw.write("<h1>Book Info Page</h1>");
 					pw.write("<p style='color:red'>Please enter a Book ID</p>");
 					pw.write("<p style='color:red'>Book ID field cannot be left blank while searching for Books via ID</p>");
-					pw.write("<br><br><a href='index.html'>ABCXYZ Book Master</a>");
+					pw.write("<br><br><a href='index.html' id='goHome'>ABCXYZ Book Master</a>");
 				}
 				else
 				{
@@ -50,7 +50,7 @@ public class DisplayBooks extends HttpServlet {
 					pw.write("<h1>Book Info Page</h1>");
 					pw.write("<p style='color:red'>Please enter a Book Name</p>");
 					pw.write("<p style='color:red'>Book Name field cannot be left blank while searching for Books via Names</p>");
-					pw.write("<br><br><a href='index.html'>ABCXYZ Book Master</a>");
+					pw.write("<br><br><a href='index.html' id='goHome'>ABCXYZ Book Master</a>");
 				}
 				else
 				{
@@ -88,14 +88,14 @@ public class DisplayBooks extends HttpServlet {
 					}
 					pw.write("</tbody>");
 					pw.write("</table>");
-					pw.write("<br><br><a href='index.html'>ABCXYZ Book Master</a>");
+					pw.write("<br><br><a href='index.html' id='goHome'>ABCXYZ Book Master</a>");
 				}
 				else
 				{
 					pw.write("<h1>Product Info Page</h1>");
 					pw.write("<p style='color:red'>No data exists with the current selection</p>");
 					pw.write("<p style='color:red'>Please enter correct Book ID Or Name Or Category</p>");
-					pw.write("<br><br><a href='index.html'>ABCXYZ Book Master</a>");
+					pw.write("<br><br><a href='index.html' id='goHome'>ABCXYZ Book Master</a>");
 				}
 			}
 		}
